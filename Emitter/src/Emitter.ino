@@ -2,7 +2,7 @@
 
 SYSTEM_MODE(MANUAL);
 
-const uint reedPin = WKP;
+const uint MICRO_SWITCH_PIN = WKP;
 const uint CLOSED_DURATION_SLEEP = 10;// If the door stays closed for this number of seconds, the boards goes to sleep
 const long SLEEP_DURATION = 60;// Number of seconds the board goes to sleep after the door stayed closed
 const char *BLE_OPENED_NAME = "letterbox-opened";// Name of the BLE device when door is openeed
@@ -55,7 +55,7 @@ void loop()
 }
 
 void advertiseCurrentState(bool isInit) {
-	bool doorOpened = digitalRead(reedPin) == 0 ? false : true;
+	bool doorOpened = digitalRead(MICRO_SWITCH_PIN) == 0 ? false : true;
 
 	// long batteryPercent = digitalRead(PWR) && !digitalRead(CHG);
 	// Serial.print("Charging? ");
