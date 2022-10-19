@@ -17,5 +17,4 @@ I'll try to add the schematics and stuff later...
 - The code is made to run on [Particle Xenon](https://docs.particle.io/xenon/) boards, which are discontinued, but it should run on any other kind of [Particle Boards](https://www.particle.io/devices/) as long as it supports bluetooth.
 - For the sound I'm using a [speaker](https://www.adafruit.com/product/1313) hooked on a [DFPlayerMini](https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299) that allows to play MP3, the MP3 player being controlled by the Xenon board.
 - A [lipo battery](https://www.adafruit.com/product/2011) to power the board. The boards inclueds a lipo charger, just plug on an USB charger.
-- A normally **closed** [reed switch](https://www.amazon.com/Gebildet-Normally-Magnetic-Induction-Multi-Use/dp/B088CQL44X) that detects the door opening and wakes up the arduino board.
-- Stick a magnet on the door, put the reed switch in front of it inside the box.
+- A [micro switch](https://www.sparkfun.com/products/13014) that detects the door opening and wakes up the arduino board.
