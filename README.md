@@ -1,5 +1,5 @@
 # Da heck is that?
-A thief is starting to hammer my balls stealing stuff from the letter boxes of my flat, including mine.\
+A thief is starting to hammer my balls stealing stuff from the letter boxes of my building, including mine.\
 Stealing my credit card being the red line he shoudln't have crossed, and as we say `Don't fuck with a developer`, I've made this simple arduino project consisting of a BLE emiter I put inside the letter box and receiver inside my flat.\
 As soon as the receiver screams, I'll run down and god knows what will happen then!\
 When the letter box is opened, the receiver knows and screams sounds on a speaker.\
