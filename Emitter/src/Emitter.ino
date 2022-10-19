@@ -2,7 +2,7 @@
 
 SYSTEM_MODE(MANUAL);
 
-const uint reedPin = D2;
+const uint reedPin = WKP;
 const uint CLOSED_DURATION_SLEEP = 10;// If the door stays closed for this number of seconds, the boards goes to sleep
 const long SLEEP_DURATION = 60;// Number of seconds the board goes to sleep after the door stayed closed
 const char *BLE_OPENED_NAME = "letterbox-opened";// Name of the BLE device when door is openeed
@@ -22,11 +22,11 @@ void setup()
 	BLE.setAdvertisingInterval(500);
 	BLE.advertise(&advData);
 
-	pinMode(reedPin, INPUT_PULLUP);
+	// pinMode(reedPin, INPUT_PULLUP);
 	pinMode(PWR, INPUT);
 	pinMode(CHG, INPUT);
 	
-	attachInterrupt(WKP, doorInterruptHandler, RISING);
+	// attachInterrupt(WKP, doorInterruptHandler, RISING);
 	delay(500);
 	Serial.println("Emitter ready");
 
@@ -38,13 +38,13 @@ void setup()
 	}
 }
 
-void doorInterruptHandler() {
-	Serial.print("Door state changed:");
-	closed = digitalRead(reedPin) == 0 ? false : true;
-	closed_at = millis();
-	if(closed) Serial.println(" closed");
-	else       Serial.println(" opened");
-}
+// void doorInterruptHandler() {
+// 	Serial.print("Door state changed:");
+// 	closed = digitalRead(reedPin) == 0 ? false : true;
+// 	closed_at = millis();
+// 	if(closed) Serial.println(" closed");
+// 	else       Serial.println(" opened");
+// }
 
 void loop()
 {
