@@ -15,20 +15,16 @@ uint closed_at = 0;
 void setup()
 {
 	Serial1.begin(9600);
-
-	BleAdvertisingData advData;
-	advData.appendLocalName(BLE_CLOSED_NAME);
-	advData.appendServiceUUID(BLE_UUID);
-	BLE.setAdvertisingInterval(500);
-	BLE.advertise(&advData);
+	RGB.control(true);
 
 	// pinMode(reedPin, INPUT_PULLUP);
 	pinMode(PWR, INPUT);
 	pinMode(CHG, INPUT);
+	RGB.color(0,0,0);
 	
 	// attachInterrupt(WKP, doorInterruptHandler, RISING);
-	delay(500);
-	Serial.println("Emitter ready");
+
+	advertiseCurrentState(true);
 
 	pinMode(WKP, INPUT_PULLDOWN);
 	Serial.println(digitalRead(WKP));
@@ -38,16 +34,27 @@ void setup()
 	}
 }
 
-// void doorInterruptHandler() {
-// 	Serial.print("Door state changed:");
-// 	closed = digitalRead(reedPin) == 0 ? false : true;
-// 	closed_at = millis();
-// 	if(closed) Serial.println(" closed");
-// 	else       Serial.println(" opened");
-// }
-
 void loop()
 {
+	advertiseCurrentState(false);
+
+	if(closed && millis() - closed_at > CLOSED_DURATION_SLEEP * 1000) {
+		if(digitalRead(WKP) == LOW) {
+			//Door closed for the last CLOSED_DURATION_SLEEP seconds.
+			//Go to deep sleep and wake up in SLEEP_DURATION seconds.
+			//If door is opened it will also wake up the board.
+			Serial.print("zzz Nap time for ");
+			Serial.println(SLEEP_DURATION);
+			// System.sleep(SLEEP_MODE_DEEP, SLEEP_DURATION);
+			System.sleep(D8, RISING, SLEEP_DURATION);
+			delay(10000);//Leave it time to the receiver to detect us
+		}
+	}
+
+	delay(500);
+}
+
+void advertiseCurrentState(bool isInit) {
 	bool doorOpened = digitalRead(reedPin) == 0 ? false : true;
 
 	// long batteryPercent = digitalRead(PWR) && !digitalRead(CHG);
@@ -71,20 +78,18 @@ void loop()
 	}
 	advData.appendServiceUUID(BLE_UUID);
 	//Update advertising label
-	BLE.setAdvertisingData(&advData);
-	
-	if(closed && millis() - closed_at > CLOSED_DURATION_SLEEP * 1000) {
-		if(digitalRead(WKP) == LOW) {
-			//Door closed for the last CLOSED_DURATION_SLEEP seconds.
-			//Go to deep sleep and wake up in SLEEP_DURATION seconds.
-			//If door is opened it will also wake up the board.
-			Serial.print("zzz Nap time for ");
-			Serial.println(SLEEP_DURATION);
-			// System.sleep(SLEEP_MODE_DEEP, SLEEP_DURATION);
-			System.sleep(D8, RISING, SLEEP_DURATION);
-			delay(10000);//Leave it time to the receiver to detect us
-		}
+	if(isInit) {
+		BLE.setAdvertisingData(&advData);
+	}else{
+		BLE.setAdvertisingInterval(50);
+		BLE.advertise(&advData);
 	}
-
-	delay(500);
 }
+
+// void doorInterruptHandler() {
+// 	Serial.print("Door state changed:");
+// 	closed = digitalRead(reedPin) == 0 ? false : true;
+// 	closed_at = millis();
+// 	if(closed) Serial.println(" closed");
+// 	else       Serial.println(" opened");
+// }
