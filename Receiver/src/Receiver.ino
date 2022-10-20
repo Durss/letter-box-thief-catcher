@@ -46,7 +46,7 @@ void setup()
 	analogWrite(gPin, 255);
 	analogWrite(bPin, 255);
 
-	MP3ExecuteCmd(0x06, 0, 33);//Set volume from 0 to 33
+	MP3ExecuteCmd(0x06, 0, 25);//Set volume from 0 to 33
 
 	analogWrite(rPin, 0);
 	analogWrite(gPin, 0);
@@ -90,8 +90,8 @@ void loop()
 		Serial.println("Start scan...");
 		shouldScan = false;
 		if(!doorOpened) {
-			analogWrite(rPin, 255);
-			analogWrite(gPin, 200);
+			analogWrite(rPin, 252);
+			analogWrite(gPin, 252);
 			analogWrite(bPin, 255);
 		}
 		//Scan for devices
@@ -123,7 +123,7 @@ void scanResultCallback(const BleScanResult *scanResult, void *context)
 			Serial.println("Box closed");
 			doorOpened = false;
 			analogWrite(rPin, 255);
-			analogWrite(gPin, 0);
+			analogWrite(gPin, 240);
 			analogWrite(bPin, 255);
 			delay(500);
 			lastAliveMs = millis();
