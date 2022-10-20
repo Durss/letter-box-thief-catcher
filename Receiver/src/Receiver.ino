@@ -8,7 +8,7 @@ SYSTEM_MODE(MANUAL);
 #define MP3_End_Byte 0xEF
 #define MP3_Acknowledge 0x00 //Returns info with command 0x41 [0x01: info, 0x00: no info]
 
-const uint LOST_TIMEOUT = 120000;//Duration after which the emitter is considered lost if it didn't show up
+const uint LOST_TIMEOUT = 6 * 60 * 1000;//Duration after which the emitter is considered lost if it didn't show up
 const char *BLE_OPENED_NAME = "letterbox-opened";//BLE name when door is opened
 const char *BLE_CLOSED_NAME = "letterbox-closed";//BLE name when door is closed
 
@@ -59,6 +59,22 @@ void setup()
 
 void loop()
 {
+	/* Demo mode
+	delay(5000);
+	analogWrite(rPin, 0);
+	analogWrite(gPin, 255);
+	analogWrite(bPin, 255);
+	delay(500);
+	MP3ExecuteCmd(0x0F, 1, 2);//Play sound N°1
+
+	delay(5000);
+
+	analogWrite(rPin, 0);
+	analogWrite(gPin, 0);
+	analogWrite(bPin, 0);
+	//*/
+
+	//*
 	MP3OnMessage();
 
 	if(millis() - lastAliveMs > LOST_TIMEOUT) {
@@ -82,6 +98,7 @@ void loop()
 		(void) BLE.scan(scanResultCallback, NULL);
 		shouldScan = true;
 	}
+	//*/
 }
 
 void scanResultCallback(const BleScanResult *scanResult, void *context)
