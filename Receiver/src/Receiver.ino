@@ -13,12 +13,11 @@ const char *BLE_OPENED_NAME = "letterbox-opened";//BLE name when door is opened
 const char *BLE_CLOSED_NAME = "letterbox-closed";//BLE name when door is closed
 
 bool doorOpened = false;
-bool shouldScan = true;
+bool toogle = true;
 uint lastAliveMs = 0;
 int rPin = D2;
 int gPin = D3;
 int bPin = D4;
-
 
 void setup()
 {
@@ -86,18 +85,23 @@ void loop()
 		analogWrite(bPin, 0);
 	}
 	
-	if(shouldScan) {//This flag is probably useless (depends weither the BLE.scan() blocks the loop execution or not, too lazy to test for now)
-		Serial.println("Start scan...");
-		shouldScan = false;
-		if(!doorOpened) {
-			analogWrite(rPin, 252);
-			analogWrite(gPin, 252);
-			analogWrite(bPin, 255);
+	Serial.println("Start scan...");
+	if(!doorOpened) {
+		toogle = !toogle;
+		if(toogle) {
+			analogWrite(rPin, 255);
+			analogWrite(gPin, 250);
+			analogWrite(bPin, 253);
+		}else{
+			analogWrite(rPin, 255);
+			analogWrite(gPin, 253
+			);
+			analogWrite(bPin, 252);
 		}
-		//Scan for devices
-		(void) BLE.scan(scanResultCallback, NULL);
-		shouldScan = true;
 	}
+	//Scan for devices
+	(void) BLE.scan(scanResultCallback, NULL);
+	delay(500);
 	//*/
 }
 
@@ -118,6 +122,7 @@ void scanResultCallback(const BleScanResult *scanResult, void *context)
 			delay(500);
 			MP3ExecuteCmd(0x0F, 1, 2);//Play sound N°1
 			// MP3ExecuteCmd(0x19, 0, 0);//Loop sound
+			BLE.stopScanning();
 		}else
 		if(name == BLE_CLOSED_NAME) {
 			Serial.println("Box closed");
@@ -127,6 +132,7 @@ void scanResultCallback(const BleScanResult *scanResult, void *context)
 			analogWrite(bPin, 255);
 			delay(500);
 			lastAliveMs = millis();
+			BLE.stopScanning();
 		}
 	}
 }
