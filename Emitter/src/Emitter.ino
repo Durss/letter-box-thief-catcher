@@ -47,7 +47,7 @@ void loop()
 			Serial.println(SLEEP_DURATION);
 			// System.sleep(SLEEP_MODE_DEEP, SLEEP_DURATION);
 			System.sleep(D8, RISING, SLEEP_DURATION);
-			delay(10000);//Leave it time to the receiver to detect us
+			//delay(10000);//Leave it time to the receiver to detect us
 		}
 	}
 

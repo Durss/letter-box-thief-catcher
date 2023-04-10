@@ -32,6 +32,10 @@ Build and upload emitter and receiver codes on their Xenon board.\
 For that, you may want to use [VSCode](https://code.visualstudio.com) with [Particle Workbench](https://www.particle.io/workbench/).\
 Also install [Particle CLI](https://docs.particle.io/getting-started/developer-tools/cli/) that installs necessary drivers.\
 
+# Flash particle board
+Open "Emitter" or "Receiver" folders in VScode. Not the root folder.\
+Plug the board via USB, press `Ctrl+Shift+P` and select `Particle: Flash application (local)`. This will flash the board. Use `Particle: Serial monitor to get logs`.
+
 # Boxes
 If you have access to a laser cutter, you'll find SVG files to cut boxes for the emitter and the receiver under [boxes](https://github.com/Durss/mailbox-thief-catcher/tree/main/boxes) folder.
 

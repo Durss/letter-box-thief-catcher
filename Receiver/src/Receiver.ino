@@ -1,4 +1,5 @@
 #include "Particle.h"
+
 SYSTEM_THREAD(ENABLED);
 SYSTEM_MODE(MANUAL);
 
@@ -12,6 +13,10 @@ const uint LOST_TIMEOUT = 6 * 60 * 1000;//Duration after which the emitter is co
 const char *BLE_OPENED_NAME = "letterbox-opened";//BLE name when door is opened
 const char *BLE_CLOSED_NAME = "letterbox-closed";//BLE name when door is closed
 
+// EXAMPLE
+BleScanParams scanParams;
+
+
 bool doorOpened = false;
 bool toogle = true;
 uint lastAliveMs = 0;
@@ -24,18 +29,24 @@ void setup()
 	Serial.begin(9600);
 	Serial1.begin(9600);
 	Serial.println("Serial begin");
-	delay(2000);
-	//*
+	/*
+	// delay(2000);
 	Serial.println("Init player");
 	MP3ExecuteCmd(0x3F, 0, 0); // Send request for initialization parameters
 
-	/* Wait until initialization parameters are received (10 bytes)
+	// Wait until initialization parameters are received (10 bytes)
 	while (Serial1.available() < 10)
 	{
 		Serial.println(Serial1.read());
 		delay(100); // Pretty long delays between succesive commands needed (not always the same)
 	}
 	//*/
+	
+	scanParams.active = 0;
+	scanParams.size = sizeof(BleScanParams);
+	int res = BLE.getScanParameters(&scanParams);
+	Serial.print("RESULT: ");
+	Serial.println(res);
 
 	pinMode(rPin, OUTPUT);
 	pinMode(gPin, OUTPUT);
@@ -94,14 +105,13 @@ void loop()
 			analogWrite(bPin, 253);
 		}else{
 			analogWrite(rPin, 255);
-			analogWrite(gPin, 253
-			);
+			analogWrite(gPin, 253);
 			analogWrite(bPin, 252);
 		}
 	}
 	//Scan for devices
 	(void) BLE.scan(scanResultCallback, NULL);
-	delay(500);
+	delay(1000);
 	//*/
 }
 
