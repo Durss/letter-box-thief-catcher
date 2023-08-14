@@ -2,26 +2,26 @@
 
 # Da heck is that?
 A thief is starting to hammer my balls stealing stuff from the mailboxes of my building, including mine.\
-Stealing my credit card being the red line he shoudln't have crossed, and as we say `Don't fuck with a developer`, I've made this simple arduino project consisting of a BLE emiter I put inside the mailbox and receiver inside my flat.\
+Stealing my credit card being the red line he shoudln't have crossed, and as we say `Don't fuck with a developer`, I've made this simple arduino project consisting of a BLE emiter I put inside the mailbox and a receiver inside my flat.\
 When the mailbox is opened, the receiver knows and screams sounds on a speaker.\
 As soon as the receiver screams, I'll run down and god knows what will happen then!\
 \
-It's made to use as low energy as possible so it can run weeks on a Lipo battery.\
-There is no actual BLE connection, the emitter simply changes the bluettoth connexion name to `letterbox-open` or `letterbox-closed` depending on the door state.\
-It goes to deepsleep for 2 minutes and wakes up for only 10s just to tell the receivier that board is still alive.\
-If the door is opened when in deep sleep, an interrupt wakes the board up so the receiver knows the door has been opened.\
+It's made to use as low energy as possible so it can run for weeks on a Lipo battery.\
+There is no actual BLE connection, the emitter simply changes the bluetooth connexion name to `letterbox-open` or `letterbox-closed` depending on the door state.\
+It goes to deep sleep for 2 minutes and wakes up for only 10s just to tell the receivier that battery is still alive.\
+If the door is opened when in deep sleep, an interrupt wakes the board up so the receiver knows the door has been opened as fast as possible.\
 \
-I'm "lucky" enough to get my flat just above the mailboxes so the bluetooth connection can be established between the mailbox and my home.\
+I'm lucky enough to get my flat just above the mailboxes so the bluetooth connection can be established between the mailbox and my home.\
 If you don't, this won't help you for this use case but it may for something else, who knows...
 
 # Component parts
-- 1 [Particle Xenon](https://docs.particle.io/xenon/) board. These are discontinued, but it should run on any other kind of [Particle Boards](https://www.particle.io/devices/) as long as it supports bluetooth and can most probably run on ESP32 boards with, maybe, some tweaks.
+- 1 [Particle Xenon](https://docs.particle.io/xenon/) board. These are discontinued, but it should run on any other kind of [Particle Boards](https://www.particle.io/devices/) as long as it supports bluetooth and can most probably run on ESP32 boards with probably some tweaks.
 - 1 [speaker](https://www.adafruit.com/product/1313).
 - 1 [DFPlayer mini](https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299) that plays MP3s on the speaker.
 - 1 [lipo battery](https://www.adafruit.com/product/2011) to power the board. The boards includes a lipo charger, just plug it to a USB wall adapter.
 - 1 [micro switch](https://www.sparkfun.com/products/13014) that detects the door opening and wakes up the arduino board.
 - 1 [Piranha RGB LED](https://www.adafruit.com/product/1451) (or any RGB led but it might not fit in the [given box](#boxes)
-- 1 micro SD card
+- 1 micro SD card to store MP3s
 - 3 resistors (330Ω)
 - [Optional] 1 or 2 [bluetooth antennas](https://www.adafruit.com/product/2308) to expand bluetooth range *(the one linked is for wifi but it should work also for BLE)*
 - [Optional] 1 [protoboard](https://www.adafruit.com/product/4786) to solder components on it ([see schematics](#schematics))
