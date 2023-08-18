@@ -46,8 +46,8 @@ If you have access to a laser cutter, you'll find SVG files to cut boxes for the
 <div align="center"><img src="https://github.com/Durss/mailbox-thief-catcher/blob/main/boxes/receiver_render.png" width="500"></div>
 
 # Schematics
-## Emitter
+## Receiver
 <img src="https://github.com/Durss/mailbox-thief-catcher/blob/main/schematics/receiver.png">
 
-## Receiver
+## Emitter
 <img src="https://github.com/Durss/mailbox-thief-catcher/blob/main/schematics/emitter.png">
